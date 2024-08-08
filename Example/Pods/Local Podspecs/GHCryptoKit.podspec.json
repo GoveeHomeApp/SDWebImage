@@ -1,0 +1,21 @@
+{
+  "name": "GHCryptoKit",
+  "version": "0.0.0",
+  "summary": "GHCryptoKit.",
+  "homepage": "git@github.com:GoveeHomeApp/GHCryptoKit.git",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": "sy",
+  "platforms": {
+    "ios": "13.0"
+  },
+  "swift_versions": "5.0",
+  "source": {
+    "git": "git@github.com:GoveeHomeApp/GHCryptoKit.git",
+    "tag": "0.0.0"
+  },
+  "source_files": "GHCryptoKit/Classes/**/*",
+  "swift_version": "5.0"
+}

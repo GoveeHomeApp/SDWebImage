@@ -1,0 +1,9 @@
+use_frameworks!
+
+platform :ios, '13.0'
+
+target 'SDWebImage_Example' do
+  pod 'SDWebImage', :path => '../'
+  pod 'GHCryptoKit', :git => 'git@github.com:GoveeHomeApp/GHCryptoKit.git', :branch => 'develop'
+
+end

@@ -1,0 +1,6 @@
+framework module Pods_SDWebImage_Example {
+  umbrella header "Pods-SDWebImage_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
