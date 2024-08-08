@@ -8,42 +8,23 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.visionos.deployment_target = "1.0"
 
-  s.license = 'MIT'
-  s.summary = 'Asynchronous image downloader with cache support with an UIImageView category.'
-  s.homepage = 'https://github.com/SDWebImage/SDWebImage'
-  s.author = { 'Olivier Poitrey' => 'rs@dailymotion.com' }
-  s.source = { :git => 'git@github.com:GoveeHomeApp/SDWebImage.git', :tag => s.version.to_s }
-
-  s.description = 'This library provides a category for UIImageView with support for remote '      \
-                  'images coming from the web. It provides an UIImageView category adding web '    \
-                  'image and cache management to the Cocoa Touch framework, an asynchronous '      \
-                  'image downloader, an asynchronous memory + disk image caching with automatic '  \
-                  'cache expiration handling, a guarantee that the same URL won\'t be downloaded ' \
-                  'several times, a guarantee that bogus URLs won\'t be retried again and again, ' \
-                  'and performances!'
+  s.homepage         = 'https://github.com/songyang/SDWebImage'
+  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.author           = { 'songyang' => 'yang.song@govee.com' }
+  s.source           = { :git => 'git@github.com:GoveeHomeApp/SDWebImage.git', :tag => s.version.to_s }
+  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.requires_arc = true
   s.framework = 'ImageIO'
+  s.source_files = 'SDWebImage/Classes/**/*'
   
-  s.default_subspec = 'Core'
 
   s.pod_target_xcconfig = {
     'SUPPORTS_MACCATALYST' => 'YES',
     'DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER' => 'NO'
   }
-
-  s.subspec 'Core' do |core|
-    core.source_files = 'SDWebImage/Core/*.{h,m}', 'WebImage/SDWebImage.h', 'SDWebImage/Private/*.{h,m}'
-    core.private_header_files = 'SDWebImage/Private/*.h'
-  end
-
-  s.subspec 'MapKit' do |mk|
-    mk.osx.deployment_target = '10.11'
-    mk.ios.deployment_target = '9.0'
-    mk.tvos.deployment_target = '9.0'
-    mk.visionos.deployment_target = "1.0"
-    mk.source_files = 'SDWebImageMapKit/MapKit/*.{h,m}'
-    mk.framework = 'MapKit'
-    mk.dependency 'SDWebImage/Core'
-  end
+  
+  s.dependency 'GHCryptoKit'
+  
 end

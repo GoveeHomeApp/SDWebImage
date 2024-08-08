@@ -1,6 +1,0 @@
-framework module GHCryptoKit {
-  umbrella header "GHCryptoKit-umbrella.h"
-
-  export *
-  module * { export * }
-}
