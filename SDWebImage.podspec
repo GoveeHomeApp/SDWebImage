@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
   s.visionos.deployment_target = "1.0"
-
+  s.summary = 'Asynchronous image downloader with cache support with an UIImageView category.'
   s.homepage         = 'https://github.com/songyang/SDWebImage'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
