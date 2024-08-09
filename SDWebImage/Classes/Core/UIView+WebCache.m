@@ -75,14 +75,16 @@ const int64_t SDWebImageProgressUnitCountUnknown = 1LL;
     }
     // 添加加密配置
     id<SDWebImageDownloaderDecryptor> decryptor = SDWebImageDownloaderDecryptor.aesDecryptor;
-    SDWebImageContext *customContext = @{SDWebImageContextDownloadDecryptor : decryptor};
     if (!context) {
+        SDWebImageContext *customContext = @{SDWebImageContextDownloadDecryptor : decryptor};
         context = customContext;
     }
     
     if (context) {
         // copy to avoid mutable object
-        context = [context copy];
+        NSMutableDictionary *diyContext = [NSMutableDictionary dictionaryWithDictionary:context];
+        diyContext[SDWebImageContextDownloadDecryptor] = decryptor;
+        context = [diyContext copy];
     } else {
         context = [NSDictionary dictionary];
     }
