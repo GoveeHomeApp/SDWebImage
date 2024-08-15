@@ -10,6 +10,7 @@
 #import "SDImageCacheConfig.h"
 #import "SDFileAttributeHelper.h"
 #import <CommonCrypto/CommonDigest.h>
+@import GHCryptoKit;
 
 static NSString * const SDDiskCacheExtendedAttributeName = @"com.hackemist.SDDiskCache";
 
@@ -64,8 +65,13 @@ static NSString * const SDDiskCacheExtendedAttributeName = @"com.hackemist.SDDis
 - (NSData *)dataForKey:(NSString *)key {
     NSParameterAssert(key);
     NSString *filePath = [self cachePathForKey:key];
+    BOOL isEnc = [key hasSuffix:@".enc"];
     NSData *data = [NSData dataWithContentsOfFile:filePath options:self.config.diskCacheReadingOptions error:nil];
     if (data) {
+        if (isEnc) {
+            NSLog(@"\nlog.f ====== 取disk缓存 解密 =======");
+            data = [[GHCryptoKitManager instance] decryptResourceWithEncryptData:data];
+        }
         return data;
     }
     
@@ -73,6 +79,10 @@ static NSString * const SDDiskCacheExtendedAttributeName = @"com.hackemist.SDDis
     // checking the key with and without the extension
     data = [NSData dataWithContentsOfFile:filePath.stringByDeletingPathExtension options:self.config.diskCacheReadingOptions error:nil];
     if (data) {
+        if (isEnc) {
+            NSLog(@"\nlog.f ====== 取disk缓存 解密 =======");
+            data = [[GHCryptoKitManager instance] decryptResourceWithEncryptData:data];
+        }
         return data;
     }
     

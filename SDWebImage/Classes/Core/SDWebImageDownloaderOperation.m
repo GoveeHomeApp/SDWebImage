@@ -342,6 +342,8 @@
 // Check for unprocessed tokens.
 // if all tokens have been processed call [self done].
 - (void)checkDoneWithImageData:(NSData *)imageData
+                   encryptData:(NSData *)encData
+                     encrypted:(BOOL)isEnc
                 finishedTokens:(NSArray<SDWebImageDownloaderOperationToken *> *)finishedTokens {
     @synchronized (self) {
         NSMutableArray<SDWebImageDownloaderOperationToken *> *tokens = [self.callbackTokens mutableCopy];
@@ -352,12 +354,13 @@
             [self done];
         } else {
             // If there are new tokens added during the decoding operation, the decoding operation is supplemented with these new tokens.
-            [self startCoderOperationWithImageData:imageData pendingTokens:tokens finishedTokens:finishedTokens];
+            [self startCoderOperationWithImageData:imageData encData:encData encrypted:isEnc pendingTokens:tokens finishedTokens:finishedTokens];
         }
     }
 }
 
-- (void)startCoderOperationWithImageData:(NSData *)imageData
+// 开始 image Coder 带上原始数据
+- (void)startCoderOperationWithImageData:(NSData *)imageData encData: (NSData *)encryptData encrypted:(BOOL)isEnc
                            pendingTokens:(NSArray<SDWebImageDownloaderOperationToken *> *)pendingTokens
                           finishedTokens:(NSArray<SDWebImageDownloaderOperationToken *> *)finishedTokens {
     @weakify(self);
@@ -399,7 +402,11 @@
                 NSError *error = [NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : description}];
                 [self callCompletionBlockWithToken:token image:nil imageData:nil error:error finished:YES];
             } else {
-                [self callCompletionBlockWithToken:token image:image imageData:imageData error:nil finished:YES];
+                if (isEnc) {
+                    [self callCompletionBlockWithToken:token image:image imageData:encryptData error:nil finished:YES];
+                } else {
+                    [self callCompletionBlockWithToken:token image:image imageData:imageData error:nil finished:YES];
+                }
             }
         }];
     }
@@ -410,8 +417,7 @@
             return;
         }
         // Check for new tokens added during the decode operation.
-        [self checkDoneWithImageData:imageData
-                      finishedTokens:[finishedTokens arrayByAddingObjectsFromArray:pendingTokens]];
+        [self checkDoneWithImageData:imageData encryptData:encryptData encrypted:isEnc finishedTokens:[finishedTokens arrayByAddingObjectsFromArray:pendingTokens]];
     };
     if (@available(iOS 13, tvOS 13, macOS 10.15, watchOS 6, *)) {
         // seems faster than `addOperationWithBlock`
@@ -420,7 +426,6 @@
         // serial queue, this does the same effect in semantics
         [self.coderQueue addOperationWithBlock:doneBlock];
     }
-
 }
 
 #pragma mark NSURLSessionDataDelegate
@@ -631,7 +636,11 @@ didReceiveResponse:(NSURLResponse *)response
         [self done];
     } else {
         if (tokens.count > 0) {
+            NSData *originData = [self.imageData mutableCopy];
             NSData *imageData = self.imageData;
+            NSURL *downLoadURL = [self.response URL];
+            NSString *urlString = [downLoadURL absoluteString];
+            BOOL isEnc = [urlString hasSuffix:@".enc"];
             // data decryptor
             if (imageData && self.decryptor) {
                 imageData = [self.decryptor decryptedDataWithData:imageData response:self.response];
@@ -649,11 +658,9 @@ didReceiveResponse:(NSURLResponse *)response
                     [self callCompletionBlocksWithError:self.responseError];
                     [self done];
                 } else {
-                    // decode the image in coder queue, cancel all previous decoding process
+                    // decode the image in coder queue, cancel all previous
                     [self.coderQueue cancelAllOperations];
-                    [self startCoderOperationWithImageData:imageData
-                                             pendingTokens:tokens
-                                            finishedTokens:@[]];
+                    [self startCoderOperationWithImageData:imageData encData:originData encrypted:isEnc pendingTokens:tokens finishedTokens:@[]];
                 }
             } else {
                 [self callCompletionBlocksWithError:[NSError errorWithDomain:SDWebImageErrorDomain code:SDWebImageErrorBadImageData userInfo:@{NSLocalizedDescriptionKey : @"Image data is nil"}]];
