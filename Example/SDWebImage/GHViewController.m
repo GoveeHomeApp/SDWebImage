@@ -46,6 +46,37 @@
     
 }
 
++ (BOOL)parseAPNGData:(NSData *)imageData {
+    const uint8_t *bytes = [imageData bytes];
+    size_t length = [imageData length];
+    // 检查 PNG 签名
+    if (memcmp(bytes, "\x89PNG", 4) != 0) {
+        NSLog(@"Not a valid PNG/APNG file.");
+        return NO;
+    }
+    // 解析块
+    size_t offset = 8; // 跳过 PNG 签名和长度
+    while (offset < length) {
+        uint32_t chunkLength = *(uint32_t *)((const void *)&bytes[offset]);
+        const char *chunkType = (const char *)&bytes[offset + 4];
+        
+        NSString *chunkTypeStr = [[NSString stringWithCString:chunkType encoding:NSUTF8StringEncoding] uppercaseString];
+        
+        if ([chunkTypeStr isEqualToString:@"ACTL"]) {
+            // 解析 acTL 块
+            uint32_t numFrames = (*(uint32_t *)((const void *)&bytes[offset + 8]));
+            uint32_t loopCount = (*(uint32_t *)((const void *)&bytes[offset + 12]));
+            NSLog(@"Number of frames: %u", numFrames);
+            NSLog(@"Loop count: %u", loopCount);
+            return YES;
+        } else {
+            // 移动到下一个块
+            offset += 4 + chunkLength + 4; // 包括长度、块类型、块数据和CRC校验
+        }
+    }
+    return NO;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
