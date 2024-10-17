@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		116DE0C92CC0A62700FB9343 /* pad_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 116DE0C82CC0A62700FB9343 /* pad_loading.png */; };
+		116DE0CB2CC0A67500FB9343 /* new_6066_anzhuang_yanshi_gif_1ru.gif in Resources */ = {isa = PBXBuildFile; fileRef = 116DE0CA2CC0A67500FB9343 /* new_6066_anzhuang_yanshi_gif_1ru.gif */; };
+		116DE0CE2CC0AD4200FB9343 /* GIFParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 116DE0CD2CC0AD4200FB9343 /* GIFParser.m */; };
+		116DE0D12CC0B00500FB9343 /* APNGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 116DE0D02CC0B00500FB9343 /* APNGParser.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -37,6 +41,12 @@
 
 /* Begin PBXFileReference section */
 		1148F878F8D956E98D2E04E8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		116DE0C82CC0A62700FB9343 /* pad_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pad_loading.png; sourceTree = "<group>"; };
+		116DE0CA2CC0A67500FB9343 /* new_6066_anzhuang_yanshi_gif_1ru.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = new_6066_anzhuang_yanshi_gif_1ru.gif; sourceTree = "<group>"; };
+		116DE0CC2CC0AD4200FB9343 /* GIFParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GIFParser.h; sourceTree = "<group>"; };
+		116DE0CD2CC0AD4200FB9343 /* GIFParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GIFParser.m; sourceTree = "<group>"; };
+		116DE0CF2CC0B00500FB9343 /* APNGParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APNGParser.h; sourceTree = "<group>"; };
+		116DE0D02CC0B00500FB9343 /* APNGParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APNGParser.m; sourceTree = "<group>"; };
 		1350D123EA1853A412DCC8FB /* Pods_SDWebImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDWebImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* SDWebImage_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDWebImage_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,11 +145,17 @@
 		6003F593195388D20070C39A /* Example for SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
+				116DE0CA2CC0A67500FB9343 /* new_6066_anzhuang_yanshi_gif_1ru.gif */,
+				116DE0C82CC0A62700FB9343 /* pad_loading.png */,
 				6003F59C195388D20070C39A /* GHAppDelegate.h */,
 				6003F59D195388D20070C39A /* GHAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* GHViewController.h */,
 				6003F5A6195388D20070C39A /* GHViewController.m */,
+				116DE0CC2CC0AD4200FB9343 /* GIFParser.h */,
+				116DE0CD2CC0AD4200FB9343 /* GIFParser.m */,
+				116DE0CF2CC0B00500FB9343 /* APNGParser.h */,
+				116DE0D02CC0B00500FB9343 /* APNGParser.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -276,6 +292,8 @@
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				116DE0CB2CC0A67500FB9343 /* new_6066_anzhuang_yanshi_gif_1ru.gif in Resources */,
+				116DE0C92CC0A62700FB9343 /* pad_loading.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,8 +359,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* GHAppDelegate.m in Sources */,
+				116DE0CE2CC0AD4200FB9343 /* GIFParser.m in Sources */,
 				6003F5A7195388D20070C39A /* GHViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				116DE0D12CC0B00500FB9343 /* APNGParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
