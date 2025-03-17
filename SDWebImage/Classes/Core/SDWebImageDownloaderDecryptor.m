@@ -7,7 +7,6 @@
 */
 
 #import "SDWebImageDownloaderDecryptor.h"
-@import GHCryptoKit;
 
 @interface SDWebImageDownloaderDecryptor ()
 
@@ -48,25 +47,6 @@
         decryptor = [SDWebImageDownloaderDecryptor decryptorWithBlock:^NSData * _Nullable(NSData * _Nonnull data, NSURLResponse * _Nullable response) {
             NSData *modifiedData = [[NSData alloc] initWithBase64EncodedData:data options:NSDataBase64DecodingIgnoreUnknownCharacters];
             return modifiedData;
-        }];
-    });
-    return decryptor;
-}
-
-+ (SDWebImageDownloaderDecryptor *)aesDecryptor {
-    static SDWebImageDownloaderDecryptor *decryptor;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        decryptor = [SDWebImageDownloaderDecryptor decryptorWithBlock:^NSData * _Nullable(NSData * _Nonnull data, NSURLResponse * _Nullable response) {
-            NSURL *downLoadURL = [response URL];
-            NSString *urlString = [downLoadURL absoluteString];
-            // 属于加密资源
-            if ([urlString hasSuffix:@".enc"]) {
-                NSData *modifiedData = [GHCryptoKitManager.instance decryptResourceWithEncryptData:data];
-                return modifiedData;
-            } else {
-                return data;
-            }
         }];
     });
     return decryptor;

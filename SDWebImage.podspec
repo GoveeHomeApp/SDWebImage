@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'SDWebImage'
-  s.version = '5.19.5'
+  s.version = '5.21.0'
 
   s.osx.deployment_target = '10.11'
   s.ios.deployment_target = '9.0'
@@ -24,7 +24,5 @@ Pod::Spec.new do |s|
     'SUPPORTS_MACCATALYST' => 'YES',
     'DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER' => 'NO'
   }
-  
-  s.dependency 'GHCryptoKit'
   
 end

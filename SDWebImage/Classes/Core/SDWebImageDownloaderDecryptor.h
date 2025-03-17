@@ -49,6 +49,4 @@ A downloader response modifier class with block.
 /// Base64 Encoded image data decryptor
 @property (class, readonly, nonnull) SDWebImageDownloaderDecryptor *base64Decryptor;
 
-@property (class, readonly, nonnull) SDWebImageDownloaderDecryptor *aesDecryptor;
-
 @end
